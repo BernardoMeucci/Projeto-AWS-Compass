@@ -23,7 +23,7 @@ O objetivo central foi projetar e implantar uma solução de nível profissional
 - **Segurança:** Isolar recursos em redes privadas e aplicar o princípio do menor privilégio.
 - **Alta Disponibilidade:** Garantir que a aplicação se mantenha operacional mesmo com falhas em componentes individuais.
 - **Escalabilidade:** Permitir que a infraestrutura se ajuste dinamicamente às variações de tráfego.
-- **Automação (IaC):** Provisionar e configurar o ambiente de forma automática e reprodutível.
+- **Automação :** Provisionar e configurar o ambiente de forma automática e reprodutível.
 
 <br>
 
