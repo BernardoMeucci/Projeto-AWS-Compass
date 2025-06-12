@@ -4,7 +4,7 @@
 
 <br>
 
-> Este projeto detalha a implementação de uma infraestrutura completa para **WordPress na AWS**, seguindo as melhores práticas de nuvem (*Cloud Best Practices*). A arquitetura foi desenhada para ser segura, resiliente a falhas, escalável e totalmente automatizada.
+> Este projeto detalha a implementação de uma infraestrutura completa para **WordPress na AWS**
 
 ---
 
