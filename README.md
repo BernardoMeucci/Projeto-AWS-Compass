@@ -14,7 +14,6 @@
 3.  [Estrutura de Arquivos do Repositório](#-estrutura-de-arquivos-do-repositório)
 4.  [Serviços AWS Utilizados](#️-serviços-aws-utilizados)
 5.  [Detalhes da Infraestrutura](#️-detalhes-da-infraestrutura)
-6.  [Arquivos de Configuração e Automação](#-arquivos-de-configuração-e-automação)
 7.  [Resultado Final](#-resultado-final)
 
 ---
@@ -107,85 +106,7 @@ Uma IAM Role (`wordpress-ec2-role`) foi criada e associada às instâncias EC2, 
 
 ---
 
-## 🚀 Arquivos de Configuração e Automação
 
-### 1. `docker-compose.yml`
-Este arquivo define o serviço do WordPress, suas variáveis de ambiente e como o armazenamento (volumes) deve ser mapeado.
-
-```yaml
-version: '3.7'
-services:
-  wordpress:
-    image: wordpress:latest
-    container_name: wordpress
-    restart: always
-    ports:
-      - "80:80"
-    environment:
-      WORDPRESS_DB_HOST: "<span class="math-inline">\{DB\_HOST\}"
-WORDPRESS\_DB\_NAME\: "</span>{DB_NAME}"
-      WORDPRESS_DB_USER: "<span class="math-inline">\{DB\_USER\}"
-WORDPRESS\_DB\_PASSWORD\: "</span>{DB_PASSWORD}"
-    volumes:
-      - /mnt/efs/wp-content:/var/www/html/wp-content
-```
-
-### 2. `scripts/user_data.sh` (User Data)
-Este script BASH é o cérebro da automação. Inserido no Launch Template, ele configura cada nova instância do zero, incluindo o download do arquivo `docker-compose.yml` do próprio repositório Git.
-
-> **⚠️ Atenção:** Antes de usar, é crucial preencher as variáveis marcadas com os valores correspondentes do seu ambiente AWS (ID do EFS e credenciais do RDS).
-
-```bash
-#!/bin/bash
-set -euxo pipefail
-exec > /var/log/user-data.log 2>&1
-
-# --- PREENCHA SUAS VARIÁVEIS AQUI ---
-EFS_ID="seu-id-do-efs"
-DB_HOST="seu-endpoint-do-rds"
-DB_USER="seu-usuario-rds"
-DB_PASSWORD="sua-senha-segura-aqui"
-# URL para o arquivo docker-compose.yml cru (raw) no seu GitHub
-DOCKER_COMPOSE_URL="[https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPO/main/docker-compose.yml](https://raw.githubusercontent.com/SEU_USUARIO/SEU_REPO/main/docker-compose.yml)"
-# --- FIM DAS VARIÁVEIS ---
-
-# Constantes do Projeto
-EFS_MOUNT_DIR="/mnt/efs"
-DB_NAME="wordpress_db"
-
-# 1. Instalação de Pacotes
-sudo dnf update -y
-sudo dnf install -y docker amazon-efs-utils git --allowerasing
-
-# 2. Configuração do Docker
-sudo systemctl enable docker
-sudo systemctl start docker
-sudo usermod -aG docker ec2-user
-
-# 3. Montagem do EFS
-sudo mkdir -p ${EFS_MOUNT_DIR}
-sudo mount -t efs -o tls ${EFS_ID}:/ <span class="math-inline">\{EFS\_MOUNT\_DIR\}
-echo "</span>{EFS_ID}:/ ${EFS_MOUNT_DIR} efs _netdev,tls 0 0" | sudo tee -a /etc/fstab
-sudo mkdir -p ${EFS_MOUNT_DIR}/wp-content
-sudo chown -R 33:33 ${EFS_MOUNT_DIR}/wp-content
-sudo chmod -R 775 <span class="math-inline">\{EFS\_MOUNT\_DIR\}/wp\-content
-# 4\. Preparação e Execução do Docker Compose
-cd /home/ec2\-user
-# Cria o arquivo \.env com as credenciais do banco de dados
-cat \> \.env <<EOF
-DB\_HOST\=</span>{DB_HOST}
-DB_NAME=<span class="math-inline">\{DB\_NAME\}
-DB\_USER\=</span>{DB_USER}
-DB_PASSWORD=${DB_PASSWORD}
-EOF
-
-# Baixa o docker-compose.yml do repositório GitHub
-curl -o docker-compose.yml ${DOCKER_COMPOSE_URL}
-
-# Inicia o container do WordPress
-sudo docker compose up -d
-echo "WordPress iniciado com sucesso em: $(date)"
-```
 ---
 
 ## ✅ Resultado Final
