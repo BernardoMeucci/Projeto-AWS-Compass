@@ -110,4 +110,3 @@ Após a conclusão de todos os passos, a arquitetura está totalmente operaciona
   <img src="imagens/wordpress-rodando.png.jpg" alt="WordPress Rodando via Load Balancer" width="800"/>
   <p><em>Tela de instalação do WordPress, acessada via DNS do Load Balancer.</em></p>
 </div>
-*(Espaço reservado para o screenshot final)*
