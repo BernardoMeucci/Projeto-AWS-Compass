@@ -169,9 +169,9 @@ echo "</span>{EFS_ID}:/ ${EFS_MOUNT_DIR} efs _netdev,tls 0 0" | sudo tee -a /etc
 sudo mkdir -p ${EFS_MOUNT_DIR}/wp-content
 sudo chown -R 33:33 ${EFS_MOUNT_DIR}/wp-content
 sudo chmod -R 775 <span class="math-inline">\{EFS\_MOUNT\_DIR\}/wp\-content
-\# 4\. Preparação e Execução do Docker Compose
+# 4\. Preparação e Execução do Docker Compose
 cd /home/ec2\-user
-\# Cria o arquivo \.env com as credenciais do banco de dados
+# Cria o arquivo \.env com as credenciais do banco de dados
 cat \> \.env <<EOF
 DB\_HOST\=</span>{DB_HOST}
 DB_NAME=<span class="math-inline">\{DB\_NAME\}
