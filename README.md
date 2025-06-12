@@ -34,7 +34,7 @@ O objetivo central foi projetar e implantar uma solução de nível profissional
 A arquitetura foi planejada para desacoplar as camadas da aplicação, utilizando serviços gerenciados da AWS para maximizar a eficiência operacional e a segurança.
 
 <div align="center">
-  <img src="imagens/arquitetura-final.png" alt="Diagrama da Arquitetura Final na AWS" width="800"/>
+  <img src="imagens/arquitetura-final.png.webp" alt="Diagrama da Arquitetura Final na AWS" width="800"/>
   <p><em>Diagrama da arquitetura de alta disponibilidade para WordPress.</em></p>
 </div>
 
@@ -85,7 +85,7 @@ A tabela abaixo resume os principais serviços AWS e suas finalidades no projeto
 Foi provisionada uma VPC customizada (`wordpress-final-vpc`) com sub-redes públicas e privadas em duas Zonas de Disponibilidade na região `us-east-1`. Um NAT Gateway foi configurado para permitir que os recursos nas sub-redes privadas acessem a internet para atualizações de software.
 
 <div align="center">
-  <img src="imagens/vpc-mapa-recursos.png" alt="Configuração da VPC e Sub-redes" width="700"/>
+  <img src="imagens/vpc-mapa-recursos.png.jpg" alt="Configuração da VPC e Sub-redes" width="700"/>
   <p><em>Mapa de Recursos da VPC, mostrando sub-redes, tabelas de rotas e gateways.</em></p>
 </div>
 
@@ -93,7 +93,7 @@ Foi provisionada uma VPC customizada (`wordpress-final-vpc`) com sub-redes públ
 Uma estratégia de "defesa em profundidade" foi aplicada com Security Groups específicos para cada camada, liberando apenas o tráfego essencial.
 
 <div align="center">
-  <img src="imagens/sg-lista-final.png" alt="Configuração dos Security Groups" width="700"/>
+  <img src="imagens/sg-lista-final.png.jpg" alt="Configuração dos Security Groups" width="700"/>
   <p><em>Grupos de segurança para ALB, EC2, EFS e RDS.</em></p>
 </div>
 
@@ -101,7 +101,7 @@ Uma estratégia de "defesa em profundidade" foi aplicada com Security Groups esp
 Uma IAM Role (`wordpress-ec2-role`) foi criada e associada às instâncias EC2, concedendo as permissões necessárias para interagir com o EFS e o Systems Manager.
 
 <div align="center">
-  <img src="imagens/iam-role.png" alt="Configuração da IAM Role" width="700"/>
+  <img src="imagens/iam-role.png.jpg" alt="Configuração da IAM Role" width="700"/>
   <p><em>Role criada para permitir que as instâncias EC2 acessem outros serviços.</em></p>
 </div>
 
@@ -193,7 +193,7 @@ echo "WordPress iniciado com sucesso em: $(date)"
 Após a conclusão de todos os passos, a arquitetura está totalmente operacional. O acesso ao site é feito através do **Nome DNS do Application Load Balancer**. O resultado é a tela de instalação padrão do WordPress, confirmando que todos os componentes estão se comunicando corretamente e que o projeto foi um sucesso.
 
 <div align="center">
-  <img src="imagens/wordpress-rodando.png" alt="WordPress Rodando via Load Balancer" width="800"/>
+  <img src="imagens/wordpress-rodando.png.jpg" alt="WordPress Rodando via Load Balancer" width="800"/>
   <p><em>Tela de instalação do WordPress, acessada via DNS do Load Balancer.</em></p>
 </div>
 
